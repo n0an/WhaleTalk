@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		1863443F1CD6770300EBCC6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863443E1CD6770300EBCC6C /* AppDelegate.swift */; };
-		186344411CD6770300EBCC6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186344401CD6770300EBCC6C /* ViewController.swift */; };
+		186344411CD6770300EBCC6C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186344401CD6770300EBCC6C /* ChatViewController.swift */; };
 		186344441CD6770300EBCC6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186344421CD6770300EBCC6C /* Main.storyboard */; };
 		186344461CD6770300EBCC6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186344451CD6770300EBCC6C /* Assets.xcassets */; };
 		186344491CD6770300EBCC6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186344471CD6770300EBCC6C /* LaunchScreen.storyboard */; };
+		186344511CD678DB00EBCC6C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186344501CD678DB00EBCC6C /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1863443B1CD6770300EBCC6C /* WhaleTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhaleTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1863443E1CD6770300EBCC6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		186344401CD6770300EBCC6C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		186344401CD6770300EBCC6C /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		186344431CD6770300EBCC6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		186344451CD6770300EBCC6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		186344481CD6770300EBCC6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1863444A1CD6770300EBCC6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		186344501CD678DB00EBCC6C /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +57,8 @@
 			isa = PBXGroup;
 			children = (
 				1863443E1CD6770300EBCC6C /* AppDelegate.swift */,
-				186344401CD6770300EBCC6C /* ViewController.swift */,
+				186344401CD6770300EBCC6C /* ChatViewController.swift */,
+				186344501CD678DB00EBCC6C /* Message.swift */,
 				186344421CD6770300EBCC6C /* Main.storyboard */,
 				186344451CD6770300EBCC6C /* Assets.xcassets */,
 				186344471CD6770300EBCC6C /* LaunchScreen.storyboard */,
@@ -90,6 +93,7 @@
 		186344331CD6770300EBCC6C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = AN;
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Anton Novoselov";
@@ -135,7 +139,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				186344411CD6770300EBCC6C /* ViewController.swift in Sources */,
+				186344511CD678DB00EBCC6C /* Message.swift in Sources */,
+				186344411CD6770300EBCC6C /* ChatViewController.swift in Sources */,
 				1863443F1CD6770300EBCC6C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
