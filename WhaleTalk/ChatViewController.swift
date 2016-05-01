@@ -24,10 +24,15 @@ class ChatViewController: UIViewController {
         
         view.addSubview(tableView)
         
+        var localIncoming = true
         
         for i in 0...10 {
             let m = Message()
             m.text = String(i)
+            
+            m.incoming = localIncoming
+            localIncoming = !localIncoming
+            
             messages.append(m)
         }
         
@@ -71,6 +76,7 @@ extension ChatViewController: UITableViewDataSource {
         let message = messages[indexPath.row]
         
         cell.messageLabel.text = message.text
+        cell.incoming(message.incoming)
         
         return cell
     }

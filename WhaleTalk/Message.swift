@@ -13,6 +13,7 @@ class Message {
     
     var text: String?
     
+    var incoming = false
     
     
 }

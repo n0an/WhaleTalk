@@ -13,6 +13,11 @@ class ANChatCell: UITableViewCell {
     let messageLabel: UILabel = UILabel()
     private let bubbleImageView = UIImageView()
     
+    private var outgoingConstraint: NSLayoutConstraint!
+    private var incomingConstraint: NSLayoutConstraint!
+    
+    
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -29,7 +34,9 @@ class ANChatCell: UITableViewCell {
         bubbleImageView.heightAnchor.constraintEqualToAnchor(messageLabel.heightAnchor).active = true
         
         bubbleImageView.topAnchor.constraintEqualToAnchor(contentView.topAnchor).active = true
-        bubbleImageView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor).active = true
+        
+        outgoingConstraint = bubbleImageView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor)
+        incomingConstraint = bubbleImageView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor)
         
         messageLabel.textAlignment = .Center
         messageLabel.numberOfLines = 0
@@ -52,7 +59,29 @@ class ANChatCell: UITableViewCell {
     
     
     
+    func incoming(incoming: Bool) {
+        
+        if incoming {
+            incomingConstraint.active = true
+            outgoingConstraint.active = false
+        } else {
+            incomingConstraint.active = false
+            outgoingConstraint.active = true
+        }
+        
+    }
+    
+    
+    
+    
+    
     
     
 
 }
+
+
+
+
+
+
