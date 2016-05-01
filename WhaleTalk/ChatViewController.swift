@@ -31,7 +31,7 @@ class ChatViewController: UIViewController {
             messages.append(m)
         }
         
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.registerClass(ANChatCell.self, forCellReuseIdentifier: cellIdentifier)
         
         tableView.dataSource = self
         
@@ -66,10 +66,11 @@ extension ChatViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ANChatCell
         
         let message = messages[indexPath.row]
-        cell.textLabel?.text = message.text
+        
+        cell.messageLabel.text = message.text
         
         return cell
     }
