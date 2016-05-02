@@ -15,5 +15,6 @@ class Message {
     
     var incoming = false
     
+    var timestamp: NSDate?
     
 }
