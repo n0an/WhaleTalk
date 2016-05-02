@@ -38,11 +38,15 @@ class ChatViewController: UIViewController {
         do {
             let request = NSFetchRequest(entityName: "Message")
             
+            request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+            
             if let result = try context?.executeFetchRequest(request) as? [Message] {
                 
                 for message in result {
                     addMessage(message)
                 }
+                
+                
             }
         } catch {
             print("We couldn't fetch!")
@@ -217,10 +221,16 @@ class ChatViewController: UIViewController {
         
         if messages == nil {
             dates.append(startDay)
+            
+            // !!!IMPORTANT!!!
+            // TRICK - DATES SORTING
+            dates = dates.sort({$0.earlierDate($1) == $0})
+            
             messages = [Message]()
         }
         
         messages!.append(message)
+        messages!.sortInPlace{$0.timestamp!.earlierDate($1.timestamp!) == $0.timestamp!}
         sections[startDay] = messages
         
     }
