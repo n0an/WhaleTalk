@@ -2,69 +2,49 @@
 //  ANChatCell.swift
 //  WhaleTalk
 //
-//  Created by Anton Novoselov on 01/05/16.
+//  Created by Anton Novoselov on 02/05/16.
 //  Copyright © 2016 Anton Novoselov. All rights reserved.
 //
 
 import UIKit
 
 class ANChatCell: UITableViewCell {
-
-    let messageLabel: UILabel = UILabel()
-    private let bubbleImageView = UIImageView()
     
-    private var outgoingConstraints: [NSLayoutConstraint]!
-    private var incomingConstraints: [NSLayoutConstraint]!
+    let nameLabel = UILabel()
+    let messageLabel = UILabel()
+    let dateLabel = UILabel()
 
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        bubbleImageView.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.font = UIFont.systemFontOfSize(18, weight: UIFontWeightBold)
+        messageLabel.textColor = UIColor.grayColor()
+        dateLabel.textColor = UIColor.grayColor()
         
-        contentView.addSubview(bubbleImageView)
-        bubbleImageView.addSubview(messageLabel)
+        let labels = [nameLabel, messageLabel, dateLabel]
         
-        messageLabel.centerXAnchor.constraintEqualToAnchor(bubbleImageView.centerXAnchor).active = true
-        messageLabel.centerYAnchor.constraintEqualToAnchor(bubbleImageView.centerYAnchor).active = true
+        for label in labels {
+            label.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(label)
+        }
         
-        bubbleImageView.widthAnchor.constraintEqualToAnchor(messageLabel.widthAnchor, constant: 50).active = true
-        bubbleImageView.heightAnchor.constraintEqualToAnchor(messageLabel.heightAnchor, constant: 20).active = true
         
-        outgoingConstraints = [
-            bubbleImageView.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor),
-            bubbleImageView.leadingAnchor.constraintGreaterThanOrEqualToAnchor(contentView.centerXAnchor)
+        let constraints: [NSLayoutConstraint] = [
         
-        ]
-        
-        incomingConstraints = [
-            bubbleImageView.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor),
-            bubbleImageView.trailingAnchor.constraintLessThanOrEqualToAnchor(contentView.centerXAnchor)
+            nameLabel.topAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.topAnchor),
+            nameLabel.leadingAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.leadingAnchor),
             
+            messageLabel.bottomAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.bottomAnchor),
+            messageLabel.leadingAnchor.constraintEqualToAnchor(nameLabel.leadingAnchor),
+            
+            dateLabel.trailingAnchor.constraintEqualToAnchor(contentView.layoutMarginsGuide.trailingAnchor),
+            dateLabel.firstBaselineAnchor.constraintEqualToAnchor(nameLabel.firstBaselineAnchor)
+        
         ]
         
-        bubbleImageView.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 10).active = true
+        NSLayoutConstraint.activateConstraints(constraints)
         
-        bubbleImageView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor, constant: -10).active = true
-        
-        
-        
-        
-        messageLabel.textAlignment = .Center
-        messageLabel.numberOfLines = 0
-        
-        
-        
-        
-//        // !!!IMPORTANT!!!
-//        // CHANGE COLOR OF IMAGE FROM CODE
-//        let image = UIImage(named: "MessageBubble")?.imageWithRenderingMode(.AlwaysTemplate)
-//        bubbleImageView.tintColor = UIColor.blueColor()()
-//        
-//        bubbleImageView.image = image
-        
-
         
     }
     
@@ -74,80 +54,17 @@ class ANChatCell: UITableViewCell {
     
     
     
-    func incoming(incoming: Bool) {
-        
-        if incoming {
-            
-            NSLayoutConstraint.deactivateConstraints(outgoingConstraints)
-            NSLayoutConstraint.activateConstraints(incomingConstraints)
-            
-            bubbleImageView.image = bubble.incoming
-            
-        } else {
-            NSLayoutConstraint.deactivateConstraints(incomingConstraints)
-            NSLayoutConstraint.activateConstraints(outgoingConstraints)
-            
-            bubbleImageView.image = bubble.outgoing
-
-        }
-        
-    }
-   
-    
-
-}
-
-let bubble = makeBubble()
-
-
-func makeBubble() -> (incoming: UIImage, outgoing: UIImage) {
-    
-    let image = UIImage(named: "MessageBubble")!
-    
-    
-    let insetsIncoming = UIEdgeInsets(top: 17, left: 26.5, bottom: 17.5, right: 21)
-    let insetsOutgoing = UIEdgeInsets(top: 17, left: 21, bottom: 17.5, right: 26.5)
-    
-    let outgoing = coloredImage(image, red: 0/255, green: 122/255, blue: 255/255, alpha: 1).resizableImageWithCapInsets(insetsOutgoing)
-    
-    // !!!IMPORTANT!!!
-    // FLIP IMAGE
-    let flippedImage = UIImage(CGImage: image.CGImage!, scale: image.scale, orientation: .UpMirrored)
-    
-    let incoming = coloredImage(flippedImage, red: 229/255, green: 229/255, blue: 229/255, alpha: 1).resizableImageWithCapInsets(insetsIncoming)
-    
-    return (incoming, outgoing)
     
 }
 
 
-// !!!IMPORTANT!!!
-// CHANGE COLOR OF IMAGE USING CONTEXT DRAW
 
-func coloredImage(image: UIImage, red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> UIImage! {
-    
-    let rect = CGRect(origin: CGPointZero, size: image.size)
-    
-    UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
-    
-    let context = UIGraphicsGetCurrentContext()
-    
-    image.drawInRect(rect)
-    
-    
-    CGContextSetRGBFillColor(context, red, green, blue, alpha)
-    CGContextSetBlendMode(context, CGBlendMode.SourceAtop)
-    
-    CGContextFillRect(context, rect)
-    
-    let result = UIGraphicsGetImageFromCurrentImageContext()
-    
-    UIGraphicsEndImageContext()
-    
-    return result
-    
-    
-}
+
+
+
+
+
+
 
 
 

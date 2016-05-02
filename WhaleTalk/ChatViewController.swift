@@ -97,8 +97,8 @@ class ChatViewController: UIViewController {
         
         NSLayoutConstraint.activateConstraints(messageAreaConstraints)
         
-        
-        tableView.registerClass(ANChatCell.self, forCellReuseIdentifier: cellIdentifier)
+        // !!!IMPORTANT!!!
+        tableView.registerClass(MessageCell.self, forCellReuseIdentifier: cellIdentifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -140,11 +140,14 @@ class ChatViewController: UIViewController {
     }
     
     
+    // MARK: - Gestures
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
         view.endEditing(true)
     }
     
     
+    // MARK: - Notifications
+
     // !!!IMPORTANT!!!
     // SLIDING UP AND DOWN NEWMESSAGEAREA WITH KEYBOARD USING NOTIFICATION CENTER
     func keyboardWillShow(notification: NSNotification) {
@@ -174,7 +177,8 @@ class ChatViewController: UIViewController {
 
     }
     
-    
+    // MARK: - Actions
+
     func pressedSend(button: UIButton) {
         guard let text = newMessageField.text where text.characters.count > 0 else {return}
         
@@ -244,7 +248,7 @@ class ChatViewController: UIViewController {
 
 
 
-
+// MARK: - UITableViewDataSource
 
 extension ChatViewController: UITableViewDataSource {
     
@@ -262,8 +266,10 @@ extension ChatViewController: UITableViewDataSource {
         return getMessages(section).count
     }
     
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ANChatCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! MessageCell
+        
         
         // !!!IMPORTANT!!!
         // REMOVE TABLEVIEW SEPARATOR
@@ -336,6 +342,7 @@ extension ChatViewController: UITableViewDataSource {
     
 }
 
+// MARK: - UITableViewDelegate
 
 extension ChatViewController: UITableViewDelegate {
     
