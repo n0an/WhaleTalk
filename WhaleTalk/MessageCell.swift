@@ -1,5 +1,5 @@
 //
-//  ANChatCell.swift
+//  MessageCell.swift
 //  WhaleTalk
 //
 //  Created by Anton Novoselov on 01/05/16.
