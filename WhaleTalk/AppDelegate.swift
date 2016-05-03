@@ -30,7 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         context.persistentStoreCoordinator = CDHelper.sharedInstance.coordinator
         vc.context = context
         
-        fakeData(context)
+        let contactsContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        contactsContext.persistentStoreCoordinator = CDHelper.sharedInstance.coordinator
+        importContacts(contactsContext)
         
         return true
     }
@@ -59,24 +61,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     
-    func fakeData(context: NSManagedObjectContext) {
+    func importContacts(context: NSManagedObjectContext) {
         let dataSeeded = NSUserDefaults.standardUserDefaults().boolForKey("dataSeeded")
         guard !dataSeeded else {return}
         
-        let people = [("John", "Nichols"), ("Matt", "Parker")]
-        
-        for person in people {
-            let contact = NSEntityDescription.insertNewObjectForEntityForName("Contact", inManagedObjectContext: context) as! Contact
-            contact.firstName = person.0
-            contact.lastName = person.1
-            
-        }
-        
-        do {
-            try context.save()
-        } catch {
-            print("Error Saving")
-        }
+        let contactImporter = ContactImporter(context: context)
+        contactImporter.fetch()
         
         NSUserDefaults.standardUserDefaults().setObject(true, forKey: "dataSeeded")
         
