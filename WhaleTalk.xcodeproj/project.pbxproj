@@ -90,11 +90,9 @@
 				1893FABA1CD89A8C0091662E /* Categories */,
 				18CA78DC1CD7E5340037648C /* Controllers */,
 				18CA78DB1CD7E51F0037648C /* Cells */,
+				1893FAD11CD8D9FE0091662E /* Protocols */,
 				18CA78DA1CD7E2550037648C /* CoreData */,
-				186344421CD6770300EBCC6C /* Main.storyboard */,
-				186344451CD6770300EBCC6C /* Assets.xcassets */,
-				186344471CD6770300EBCC6C /* LaunchScreen.storyboard */,
-				1863444A1CD6770300EBCC6C /* Info.plist */,
+				1893FAD21CD8DAA80091662E /* Supporting Files */,
 			);
 			path = WhaleTalk;
 			sourceTree = "<group>";
@@ -108,11 +106,30 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		1893FAD11CD8D9FE0091662E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1893FAC51CD8BB9C0091662E /* ChatCreationDelegate.swift */,
+				1893FABB1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		1893FAD21CD8DAA80091662E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				186344421CD6770300EBCC6C /* Main.storyboard */,
+				186344451CD6770300EBCC6C /* Assets.xcassets */,
+				186344471CD6770300EBCC6C /* LaunchScreen.storyboard */,
+				1863444A1CD6770300EBCC6C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		18CA78DA1CD7E2550037648C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				18CA78BB1CD769A30037648C /* CDHelper.swift */,
-				1893FABB1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift */,
 				18CA78BD1CD76AE50037648C /* Model.xcdatamodeld */,
 				18CA78DD1CD7E5490037648C /* Models */,
 			);
@@ -134,7 +151,6 @@
 				18CA78DE1CD7E58E0037648C /* ANNewChatViewController.swift */,
 				18CA78D41CD77ECE0037648C /* ANAllChatsViewController.swift */,
 				186344401CD6770300EBCC6C /* ChatViewController.swift */,
-				1893FAC51CD8BB9C0091662E /* ChatCreationDelegate.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
