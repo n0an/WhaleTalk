@@ -38,6 +38,8 @@ class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplay
         tableView.registerClass(ANChatCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
+        tableView.tableHeaderView = createHeader()
+        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -101,6 +103,51 @@ class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplay
         
     }
     
+    private func createHeader() -> UIView {
+        
+        let header = UIView()
+        let newGroupButton = UIButton()
+        newGroupButton.translatesAutoresizingMaskIntoConstraints = false
+        header.addSubview(newGroupButton)
+        
+        newGroupButton.setTitle("New Group", forState: .Normal)
+        newGroupButton.setTitleColor(view.tintColor, forState: .Normal)
+        newGroupButton.addTarget(self, action: "pressedNewGroup", forControlEvents: .TouchUpInside)
+        
+        let border = UIView()
+        border.translatesAutoresizingMaskIntoConstraints = false
+        header.addSubview(border)
+        
+        border.backgroundColor = UIColor.lightGrayColor()
+        
+        
+        let constraints: [NSLayoutConstraint] = [
+        
+            newGroupButton.heightAnchor.constraintEqualToAnchor(header.heightAnchor),
+            newGroupButton.trailingAnchor.constraintEqualToAnchor(header.layoutMarginsGuide.trailingAnchor),
+            
+            border.heightAnchor.constraintEqualToConstant(1),
+            border.leadingAnchor.constraintEqualToAnchor(header.leadingAnchor),
+            border.trailingAnchor.constraintEqualToAnchor(header.trailingAnchor),
+            border.bottomAnchor.constraintEqualToAnchor(header.bottomAnchor)
+            
+        ]
+        
+        NSLayoutConstraint.activateConstraints(constraints)
+        
+        header.setNeedsLayout()
+        header.layoutIfNeeded()
+        
+        let height = header.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+        var frame = header.frame
+        
+        frame.size.height = height
+        header.frame = frame
+        
+        return header
+        
+    }
+    
     // MARK: - ChatCreationDelegate
     
     func created(chat chat: Chat, inContext context: NSManagedObjectContext) {
@@ -131,6 +178,12 @@ class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplay
         let navVC = UINavigationController(rootViewController: vc)
         
         presentViewController(navVC, animated: true, completion: nil)
+    }
+    
+    
+    
+    func pressedNewGroup() {
+        
     }
     
     
