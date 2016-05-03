@@ -138,7 +138,9 @@ class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplay
     }
     
     
-    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
 
 }
