@@ -9,9 +9,9 @@
 import UIKit
 import CoreData
 
-class ANNewChatViewController: UIViewController {
+class ANNewChatViewController: UIViewController, TableViewFetchedResultsDisplayer {
     
-// MARK: - Variables
+// MARK: - Attributes
     
     var context: NSManagedObjectContext?
     
@@ -20,6 +20,8 @@ class ANNewChatViewController: UIViewController {
     private let  tableView = UITableView(frame: CGRectZero, style: .Plain)
     
     private let cellIdentifier = "ContactCell"
+    
+    private var fetchedResultsDelegate: NSFetchedResultsControllerDelegate?
 
     
 // MARK: - viewDidLoad
@@ -58,7 +60,8 @@ class ANNewChatViewController: UIViewController {
             
             fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: "sortLetter", cacheName: "NewChatViewController")
             
-            fetchedResultsController?.delegate = self
+            fetchedResultsDelegate = ANTableViewFetchedResultsDelegate(tableView: tableView, displayer: self)
+            fetchedResultsController?.delegate = fetchedResultsDelegate
             
             do {
                 try fetchedResultsController?.performFetch()
@@ -145,57 +148,7 @@ extension ANNewChatViewController: UITableViewDelegate {
 }
 
 
-// MARK: - NSFetchedResultsControllerDelegate
 
-extension ANNewChatViewController: NSFetchedResultsControllerDelegate {
-    
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        tableView.beginUpdates()
-    }
-    
-    
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-        
-        switch type {
-        case .Insert:
-            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-            
-        case .Delete:
-            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-            
-        default:
-            break
-        }
-        
-    }
-    
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        
-        switch type {
-        case .Insert:
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-        
-        case .Update:
-            let cell = tableView.cellForRowAtIndexPath(indexPath!)
-            configureCell(cell!, atIndexPath: indexPath!)
-            tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            
-        case .Move:
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-            
-        case .Delete:
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-        }
-    }
-    
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        tableView.endUpdates()
-    }
-    
-    
-    
-}
 
 
 

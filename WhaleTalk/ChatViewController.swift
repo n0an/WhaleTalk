@@ -11,7 +11,7 @@ import CoreData
 
 class ChatViewController: UIViewController {
     
-    // MARK: - Variables
+    // MARK: - Attributes
     
     private let tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Grouped)
     private let newMessageField = UITextView()
