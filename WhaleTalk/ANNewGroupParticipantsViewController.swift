@@ -23,6 +23,8 @@ class ANNewGroupParticipantsViewController: UIViewController {
     private let cellIdentifier = "ContactCell"
     
     private var displayedContacts = [Contact]()
+    private var allContact = [Contact]()
+    private var selectedContacts = [Contact]()
     
     // MARK: - viewDidLoad
     
@@ -46,6 +48,7 @@ class ANNewGroupParticipantsViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
         searchField = createSearchField()
+        searchField.delegate = self
         
         tableView.tableHeaderView = searchField
         
@@ -58,7 +61,7 @@ class ANNewGroupParticipantsViewController: UIViewController {
             
             do {
                 if let result = try context.executeFetchRequest(request) as? [Contact] {
-                    displayedContacts = result
+                    allContact = result
                 }
             } catch {
                 print("There was a problem fetching.")
@@ -117,8 +120,17 @@ class ANNewGroupParticipantsViewController: UIViewController {
         }
     }
     
-
+    
+    private func endSearch() {
+        displayedContacts = selectedContacts
+        tableView.reloadData()
+    }
+    
+    
+    
 }
+
+
 
 // MARK: - UITableViewDataSource
 
@@ -141,11 +153,41 @@ extension ANNewGroupParticipantsViewController: UITableViewDataSource {
         return cell
     }
     
-    
-    
 }
 
 
+// MARK: - UITextFieldDelegate
+
+// !!!IMPORTANT!!!
+// SEARCHING REALIZATION
+
+extension ANNewGroupParticipantsViewController: UITextFieldDelegate {
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let currentText = textField.text else {
+            endSearch()
+            return true
+        }
+        
+        let text = NSString(string: currentText).stringByReplacingCharactersInRange(range, withString: string)
+        
+        if text.characters.count == 0 {
+            endSearch()
+            return true
+        }
+        
+        displayedContacts = allContact.filter{
+            contact in
+            
+            let match = contact.fullName.rangeOfString(text) != nil
+            return match
+        }
+        
+        tableView.reloadData()
+        return true
+        
+    }
+}
 
 
 
