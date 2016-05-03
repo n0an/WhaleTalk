@@ -26,6 +26,8 @@ class ANNewGroupParticipantsViewController: UIViewController {
     private var allContact = [Contact]()
     private var selectedContacts = [Contact]()
     
+    private var isSearching = false
+    
     // MARK: - viewDidLoad
     
     override func viewDidLoad() {
@@ -44,6 +46,7 @@ class ANNewGroupParticipantsViewController: UIViewController {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         tableView.dataSource = self
+        tableView.delegate = self
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
@@ -155,6 +158,33 @@ extension ANNewGroupParticipantsViewController: UITableViewDataSource {
     
 }
 
+// MARK: - UITableViewDelegate
+
+extension ANNewGroupParticipantsViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard isSearching else {return}
+        
+        let contact = displayedContacts[indexPath.row]
+        
+        guard !selectedContacts.contains(contact) else {return}
+        
+        selectedContacts.append(contact)
+        
+        allContact.removeAtIndex(allContact.indexOf(contact)!)
+        
+        searchField.text = ""
+        endSearch()
+        
+        showCreateButton(true)
+    }
+    
+}
+
 
 // MARK: - UITextFieldDelegate
 
@@ -163,6 +193,8 @@ extension ANNewGroupParticipantsViewController: UITableViewDataSource {
 
 extension ANNewGroupParticipantsViewController: UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        isSearching = true
         
         guard let currentText = textField.text else {
             endSearch()
