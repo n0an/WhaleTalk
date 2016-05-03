@@ -20,6 +20,10 @@ class ContactImporter {
         
     }
     
+    func formatPhoneNumber(number: CNPhoneNumber) -> String {
+        return number.stringValue.stringByReplacingOccurrencesOfString(" ", withString: "").stringByReplacingOccurrencesOfString("-", withString: "").stringByReplacingOccurrencesOfString("(", withString: "").stringByReplacingOccurrencesOfString(")", withString: "")
+    }
+    
     
     func fetch() {
         
@@ -42,7 +46,17 @@ class ContactImporter {
                         contact.lastName = cnContact.familyName
                         contact.contactId = cnContact.identifier
                         
-                        print(contact)
+                        let contactNumbers = NSMutableSet()
+                        for cnVal in cnContact.phoneNumbers {
+                            guard let cnPhoneNumber = cnVal.value as? CNPhoneNumber else {continue}
+                            
+                            guard let phoneNumber = NSEntityDescription.insertNewObjectForEntityForName("PhoneNumber", inManagedObjectContext: self.context) as? PhoneNumber else {continue}
+                            
+                            phoneNumber.value = self.formatPhoneNumber(cnPhoneNumber)
+                            contactNumbers.addObject(phoneNumber)
+                        }
+                        
+                        contact.phoneNumbers = contactNumbers
                     })
                     
                     
