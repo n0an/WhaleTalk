@@ -99,12 +99,23 @@ class ANNewGroupViewController: UIViewController {
     }
     
     func next() {
+        guard let context = context, chat = NSEntityDescription.insertNewObjectForEntityForName("Chat", inManagedObjectContext: context) as? Chat else {return}
         
+        chat.name = subjectField.text
+        
+        let vc = ANNewGroupParticipantsViewController()
+        vc.context = context
+        vc.chat = chat
+        
+        vc.chatCreationDelegate = chatCreationDelegate
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     
 }
 
+// MARK: - UITextFieldDelegate
 
 extension ANNewGroupViewController: UITextFieldDelegate {
     

@@ -15,6 +15,7 @@ import CoreData
 extension Chat {
 
     @NSManaged var lastMessageTime: NSDate?
+    @NSManaged var name: String?
     @NSManaged var messages: NSSet?
     @NSManaged var participants: NSSet?
 
