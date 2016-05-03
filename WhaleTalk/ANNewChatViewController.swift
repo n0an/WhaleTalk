@@ -39,22 +39,11 @@ class ANNewChatViewController: UIViewController, TableViewFetchedResultsDisplaye
         automaticallyAdjustsScrollViewInsets = false
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(tableView)
         
         tableView.dataSource = self
         tableView.delegate = self
         
-        let tableViewConstraints: [NSLayoutConstraint] = [
-            tableView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor),
-            tableView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor),
-            tableView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor),
-            tableView.bottomAnchor.constraintEqualToAnchor(bottomLayoutGuide.topAnchor)
-        ]
-        
-        
-        NSLayoutConstraint.activateConstraints(tableViewConstraints)
+        fillViewWith(tableView)
         
         
         if let context = context {

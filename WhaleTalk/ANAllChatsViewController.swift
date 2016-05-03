@@ -37,21 +37,11 @@ class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplay
         
         tableView.registerClass(ANChatCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.dataSource = self
         tableView.delegate = self
-        view.addSubview(tableView)
         
-        let tableViewConstraints: [NSLayoutConstraint] = [
-            tableView.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor),
-            tableView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor),
-            tableView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor),
-            tableView.bottomAnchor.constraintEqualToAnchor(bottomLayoutGuide.topAnchor)
-        ]
-        
-        NSLayoutConstraint.activateConstraints(tableViewConstraints)
-        
+        fillViewWith(tableView)
         
         
         if let context = context {

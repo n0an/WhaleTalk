@@ -278,7 +278,7 @@ class ChatViewController: UIViewController {
         
         
         message.text = text
-        message.isIncoming = false
+        
         
         message.timestamp = NSDate()
         
