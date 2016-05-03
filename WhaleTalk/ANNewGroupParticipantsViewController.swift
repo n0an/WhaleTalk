@@ -130,6 +130,19 @@ class ANNewGroupParticipantsViewController: UIViewController {
     }
     
     
+    // MARK: - ACTIONS
+
+    func createChat() {
+        
+        guard let chat = chat, context = context else {return}
+        
+        chat.participants = NSSet(array: selectedContacts)
+        
+        chatCreationDelegate?.created(chat: chat, inContext: context)
+        
+        dismissViewControllerAnimated(false, completion: nil)
+        
+    }
     
 }
 
