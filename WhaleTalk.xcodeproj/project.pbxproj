@@ -81,7 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				1863443E1CD6770300EBCC6C /* AppDelegate.swift */,
-				18CA78B91CD74E9B0037648C /* UITableView+Scroll.swift */,
+				1893FABA1CD89A8C0091662E /* Categories */,
 				18CA78DC1CD7E5340037648C /* Controllers */,
 				18CA78DB1CD7E51F0037648C /* Cells */,
 				18CA78DA1CD7E2550037648C /* CoreData */,
@@ -91,6 +91,14 @@
 				1863444A1CD6770300EBCC6C /* Info.plist */,
 			);
 			path = WhaleTalk;
+			sourceTree = "<group>";
+		};
+		1893FABA1CD89A8C0091662E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				18CA78B91CD74E9B0037648C /* UITableView+Scroll.swift */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		18CA78DA1CD7E2550037648C /* CoreData */ = {

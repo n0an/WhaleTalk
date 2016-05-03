@@ -11,6 +11,8 @@ import CoreData
 
 class ChatViewController: UIViewController {
     
+    // MARK: - Variables
+    
     private let tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Grouped)
     private let newMessageField = UITextView()
     
@@ -24,6 +26,7 @@ class ChatViewController: UIViewController {
     
     var context: NSManagedObjectContext?
     
+    // MARK: - viewDidLoad
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,8 +128,6 @@ class ChatViewController: UIViewController {
         tapRecognizer.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapRecognizer)
         
-        
-        
     }
     
     
@@ -177,6 +178,35 @@ class ChatViewController: UIViewController {
 
     }
     
+    // MARK: - Helper Methods
+    
+    func addMessage(message: Message) {
+        
+        guard let date = message.timestamp else {return}
+        
+        let calendar = NSCalendar.currentCalendar()
+        
+        let startDay = calendar.startOfDayForDate(date)
+        
+        var messages = sections[startDay]
+        
+        if messages == nil {
+            dates.append(startDay)
+            
+            // !!!IMPORTANT!!!
+            // TRICK - DATES SORTING
+            dates = dates.sort({$0.earlierDate($1) == $0})
+            
+            messages = [Message]()
+        }
+        
+        messages!.append(message)
+        messages!.sortInPlace{$0.timestamp!.earlierDate($1.timestamp!) == $0.timestamp!}
+        sections[startDay] = messages
+        
+    }
+
+    
     // MARK: - Actions
 
     func pressedSend(button: UIButton) {
@@ -212,39 +242,7 @@ class ChatViewController: UIViewController {
         
     }
     
-    
-    func addMessage(message: Message) {
-        
-        guard let date = message.timestamp else {return}
-        
-        let calendar = NSCalendar.currentCalendar()
-        
-        let startDay = calendar.startOfDayForDate(date)
-        
-        var messages = sections[startDay]
-        
-        if messages == nil {
-            dates.append(startDay)
-            
-            // !!!IMPORTANT!!!
-            // TRICK - DATES SORTING
-            dates = dates.sort({$0.earlierDate($1) == $0})
-            
-            messages = [Message]()
-        }
-        
-        messages!.append(message)
-        messages!.sortInPlace{$0.timestamp!.earlierDate($1.timestamp!) == $0.timestamp!}
-        sections[startDay] = messages
-        
-    }
-    
-    
-    
-    
-    
 }
-
 
 
 

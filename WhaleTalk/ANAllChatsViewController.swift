@@ -11,6 +11,8 @@ import CoreData
 
 class ANAllChatsViewController: UIViewController {
 
+    // MARK: - Variables
+
     var context: NSManagedObjectContext?
     
     private var fetchedResultsController: NSFetchedResultsController?
@@ -19,7 +21,7 @@ class ANAllChatsViewController: UIViewController {
     
     private let cellIdentifier = "MessageCell"
     
-    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,10 +76,9 @@ class ANAllChatsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func newChat() {
-        
-    }
     
+    
+    // MARK: - Helper Methods
     
     func fakeData() {
         guard let context = context else {return}
@@ -85,7 +86,6 @@ class ANAllChatsViewController: UIViewController {
         let chat = NSEntityDescription.insertNewObjectForEntityForName("Chat", inManagedObjectContext: context) as? Chat
     }
     
-
     
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         
@@ -101,10 +101,22 @@ class ANAllChatsViewController: UIViewController {
         
     }
     
-    
+    // MARK: - Actions
+
+    func newChat() {
+        let vc = ANNewChatViewController()
+        vc.context = context
+        
+        let navVC = UINavigationController(rootViewController: vc)
+        
+        presentViewController(navVC, animated: true, completion: nil)
+    }
+
 }
 
 
+
+// MARK: - UITableViewDataSource
 
 extension ANAllChatsViewController: UITableViewDataSource {
     
@@ -134,7 +146,7 @@ extension ANAllChatsViewController: UITableViewDataSource {
     
 }
 
-
+// MARK: - UITableViewDelegate
 
 extension ANAllChatsViewController: UITableViewDelegate {
     
@@ -156,7 +168,7 @@ extension ANAllChatsViewController: UITableViewDelegate {
 
 
 
-
+// MARK: - NSFetchedResultsControllerDelegate
 
 extension ANAllChatsViewController: NSFetchedResultsControllerDelegate {
     
@@ -177,16 +189,21 @@ extension ANAllChatsViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
         switch type {
+            
         case .Insert:
             tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+            
         case .Update:
             let cell = tableView.cellForRowAtIndexPath(indexPath!)
             configureCell(cell!, atIndexPath: indexPath!)
             tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
             tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+            
         case .Delete:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
             
