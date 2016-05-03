@@ -282,6 +282,9 @@ class ChatViewController: UIViewController {
         
         message.timestamp = NSDate()
         
+        message.chat = chat
+        
+        chat?.lastMessageTime = message.timestamp
         
         do {
             try context.save()
