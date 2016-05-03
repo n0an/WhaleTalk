@@ -24,6 +24,9 @@ class ANNewChatViewController: UIViewController, TableViewFetchedResultsDisplaye
     private var fetchedResultsDelegate: NSFetchedResultsControllerDelegate?
 
     
+    var chatCreationDelegate: ChatCreationDelegate?
+    
+    
 // MARK: - viewDidLoad
     
     override func viewDidLoad() {
@@ -152,7 +155,9 @@ extension ANNewChatViewController: UITableViewDelegate {
         
         chat.add(participant: contact)
         
+        chatCreationDelegate?.created(chat: chat, inContext: context)
         
+        dismissViewControllerAnimated(false, completion: nil)
     }
     
 }

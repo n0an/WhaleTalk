@@ -33,9 +33,10 @@ class Chat: NSManagedObject {
     
     
     
-    
+    // !!!IMPORTANT!!!
     func add(participant contact: Contact) {
         mutableSetValueForKey("participants").addObject(contact)
+        
         
     }
     

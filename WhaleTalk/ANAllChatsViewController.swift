@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplayer {
+class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplayer, ChatCreationDelegate {
 
     // MARK: - Attributes
 
@@ -105,16 +105,33 @@ class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplay
         
     }
     
+    // MARK: - ChatCreationDelegate
+    
+    func created(chat chat: Chat, inContext context: NSManagedObjectContext) {
+        let vc = ChatViewController()
+        vc.context = context
+        vc.chat = chat
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    
     // MARK: - Actions
 
     func newChat() {
         let vc = ANNewChatViewController()
         vc.context = context
+        vc.chatCreationDelegate = self
         
         let navVC = UINavigationController(rootViewController: vc)
         
         presentViewController(navVC, animated: true, completion: nil)
     }
+    
+    
+    
+    
 
 }
 
