@@ -183,7 +183,17 @@ class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplay
     
     
     func pressedNewGroup() {
+        let vc = ANNewGroupViewController()
+        let chatContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        chatContext.parentContext = context
         
+        vc.context = chatContext
+        
+        vc.chatCreationDelegate = self
+        
+        let navVC = UINavigationController(rootViewController: vc)
+        
+        presentViewController(navVC, animated: true, completion: nil)
     }
     
     
