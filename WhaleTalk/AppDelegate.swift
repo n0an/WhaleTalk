@@ -20,25 +20,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         
-//        let vc = window!.rootViewController as! ChatViewController
+        let mainContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        mainContext.persistentStoreCoordinator = CDHelper.sharedInstance.coordinator
         
-        let vc = ANAllChatsViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        
-        window?.rootViewController = nav
-        
-        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        context.persistentStoreCoordinator = CDHelper.sharedInstance.coordinator
-        vc.context = context
         
         let contactsContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         contactsContext.persistentStoreCoordinator = CDHelper.sharedInstance.coordinator
         
-        contactImporter = ContactImporter(context: context)
+        contactImporter = ContactImporter(context: contactsContext)
         
         importContacts(contactsContext)
         
         contactImporter?.listenForChanges()
+        
+        
+        
+        
+        let tabController = UITabBarController()
+        
+        let vcData:[(UIViewController, UIImage)] = [
+            (ANAllChatsViewController(), UIImage(named: "chat-icon")!)
+        
+        ]
+        
+        let vcs = vcData.map { (vc: UIViewController, image: UIImage) -> UINavigationController in
+            
+            if var vc = vc as? ContextViewController {
+                vc.context = mainContext
+            }
+                let nav = UINavigationController(rootViewController: vc)
+                nav.tabBarItem.image = image
+                return nav
+
+        }
+        tabController.viewControllers = vcs
+        window?.rootViewController = tabController
+        
         
         return true
     }

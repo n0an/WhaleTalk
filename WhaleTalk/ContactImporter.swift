@@ -19,7 +19,7 @@ class ContactImporter: NSObject {
     private var lastCNNotificationTime: NSDate?
     
     init(context: NSManagedObjectContext) {
-    
+        
         self.context = context
         
     }
@@ -108,18 +108,18 @@ class ContactImporter: NSObject {
                             contact.lastName = cnContact.familyName
                             contact.contactId = cnContact.identifier
                             
-
+                            
                             for cnVal in cnContact.phoneNumbers {
                                 guard let cnPhoneNumber = cnVal.value as? CNPhoneNumber else {continue}
                                 
                                 guard let phoneNumber = phoneNumbers[cnPhoneNumber.stringValue] ?? NSEntityDescription.insertNewObjectForEntityForName("PhoneNumber", inManagedObjectContext: self.context) as? PhoneNumber else {continue}
                                 
                                 phoneNumber.value = self.formatPhoneNumber(cnPhoneNumber)
-
+                                
                                 phoneNumber.contact = contact
                             }
                             
-
+                            
                         })
                         
                         try self.context.save()
@@ -130,7 +130,7 @@ class ContactImporter: NSObject {
                         print("Error with do-catch")
                     }
                 }
-            
+                
             }
             
             

@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplayer, ChatCreationDelegate {
+class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplayer, ChatCreationDelegate, ContextViewController {
 
     // MARK: - Attributes
 
