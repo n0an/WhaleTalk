@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1800D0751CDA80900054BB9B /* ContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800D0741CDA80900054BB9B /* ContextViewController.swift */; };
+		1800D0771CDA89970054BB9B /* ANContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800D0761CDA89970054BB9B /* ANContactsViewController.swift */; };
 		1863443F1CD6770300EBCC6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863443E1CD6770300EBCC6C /* AppDelegate.swift */; };
 		186344411CD6770300EBCC6C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186344401CD6770300EBCC6C /* ChatViewController.swift */; };
 		186344441CD6770300EBCC6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186344421CD6770300EBCC6C /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		1800D0741CDA80900054BB9B /* ContextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextViewController.swift; sourceTree = "<group>"; };
+		1800D0761CDA89970054BB9B /* ANContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANContactsViewController.swift; sourceTree = "<group>"; };
 		1863443B1CD6770300EBCC6C /* WhaleTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhaleTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1863443E1CD6770300EBCC6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186344401CD6770300EBCC6C /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			children = (
 				18CA78DE1CD7E58E0037648C /* ANNewChatViewController.swift */,
 				18CA78D41CD77ECE0037648C /* ANAllChatsViewController.swift */,
+				1800D0761CDA89970054BB9B /* ANContactsViewController.swift */,
 				186344401CD6770300EBCC6C /* ChatViewController.swift */,
 				1893FAD31CD8EEDD0091662E /* ANNewGroupViewController.swift */,
 				1893FAD91CD8FB800091662E /* ANNewGroupParticipantsViewController.swift */,
@@ -272,6 +275,7 @@
 				1893FAE81CD91D8D0091662E /* Contact+CoreDataProperties.swift in Sources */,
 				18CA78D31CD77A610037648C /* ANChatCell.swift in Sources */,
 				1893FAC81CD8D05F0091662E /* UIViewController+FillWithView.swift in Sources */,
+				1800D0771CDA89970054BB9B /* ANContactsViewController.swift in Sources */,
 				1893FACF1CD8D47C0091662E /* Message+CoreDataProperties.swift in Sources */,
 				1893FADA1CD8FB800091662E /* ANNewGroupParticipantsViewController.swift in Sources */,
 				1893FAD41CD8EEDD0091662E /* ANNewGroupViewController.swift in Sources */,

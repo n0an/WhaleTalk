@@ -40,8 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabController = UITabBarController()
         
         let vcData:[(UIViewController, UIImage)] = [
+            
+            (ANContactsViewController(), UIImage(named: "contact-icon")!),
             (ANAllChatsViewController(), UIImage(named: "chat-icon")!)
-        
+            
         ]
         
         let vcs = vcData.map { (vc: UIViewController, image: UIImage) -> UINavigationController in
