@@ -154,6 +154,7 @@ class ANAllChatsViewController: UIViewController, TableViewFetchedResultsDisplay
         let vc = ChatViewController()
         vc.context = context
         vc.chat = chat
+        vc.hidesBottomBarWhenPushed = true
         
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -255,6 +256,8 @@ extension ANAllChatsViewController: UITableViewDelegate {
         let vc = ChatViewController()
         vc.context = context
         vc.chat = chat
+        vc.hidesBottomBarWhenPushed = true
+        
         navigationController?.pushViewController(vc, animated: true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

@@ -34,7 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         contactImporter?.listenForChanges()
         
         
-        
+        // !!!IMPORTANT!!!
+        // ** ADDING UITABBARCONTROLLER IN CODE
         
         let tabController = UITabBarController()
         
