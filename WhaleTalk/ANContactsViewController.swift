@@ -11,7 +11,7 @@ import CoreData
 import ContactsUI
 import Contacts
 
-class ANContactsViewController: UIViewController, ContextViewController, TableViewFetchedResultsDisplayer {
+class ANContactsViewController: UIViewController, ContextViewController, TableViewFetchedResultsDisplayer, ContactSelector {
     
     // MARK: - ATTRIBUTES
     
@@ -43,6 +43,7 @@ class ANContactsViewController: UIViewController, ContextViewController, TableVi
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.dataSource = self
+        tableView.delegate = self
         
         fillViewWith(tableView)
         
@@ -67,6 +68,7 @@ class ANContactsViewController: UIViewController, ContextViewController, TableVi
         
         
         let resultsVC = ContactsSearchResultsController()
+        resultsVC.contactSelector = self
         resultsVC.contacts = fetchedResultsController?.fetchedObjects as! [Contact]
         
         searchController = UISearchController(searchResultsController: resultsVC)
@@ -97,10 +99,34 @@ class ANContactsViewController: UIViewController, ContextViewController, TableVi
         cell.textLabel?.text = contact.fullName
     }
     
+    // MARK: - ContactSelector protocol
+    
+    func selectedContact(contact: Contact) {
+        guard let id = contact.contactId else {return}
+        
+        let store = CNContactStore()
+        
+        let cncontact: CNContact
+        
+        do {
+            cncontact = try store.unifiedContactWithIdentifier(id, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
+        } catch {
+            return
+        }
+        
+        let vc = CNContactViewController(forContact: cncontact)
+        vc.hidesBottomBarWhenPushed = true
+        
+        navigationController?.pushViewController(vc, animated: true)
+        
+        searchController?.active = false
+    }
+    
     
 }
 
 
+// MARK: - UITableViewDataSource
 
 extension ANContactsViewController: UITableViewDataSource {
     
@@ -140,6 +166,23 @@ extension ANContactsViewController: UITableViewDataSource {
     
 }
 
+// MARK: - UITableViewDelegate
+
+extension ANContactsViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let contact = fetchedResultsController?.objectAtIndexPath(indexPath) as? Contact else {return}
+        selectedContact(contact)
+        tableView .deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    
+    
+}
 
 
 
