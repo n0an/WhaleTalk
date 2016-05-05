@@ -142,7 +142,7 @@ extension ANNewChatViewController: UITableViewDelegate {
         
         
         let chat = Chat.existing(directWith: contact, inContext: context) ?? Chat.new(directWith: contact, inContext: context)
-                
+        
         
         chatCreationDelegate?.created(chat: chat, inContext: context)
         
