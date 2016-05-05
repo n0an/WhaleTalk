@@ -69,9 +69,7 @@ class ANTableViewFetchedResultsDelegate: NSObject, NSFetchedResultsControllerDel
 
 
 
-protocol TableViewFetchedResultsDisplayer {
-    func configureCell(cell: UITableViewCell, atIndexPath: NSIndexPath)
-}
+
 
 
 

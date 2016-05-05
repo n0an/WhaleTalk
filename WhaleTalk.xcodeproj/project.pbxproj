@@ -15,6 +15,7 @@
 		186344461CD6770300EBCC6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186344451CD6770300EBCC6C /* Assets.xcassets */; };
 		186344491CD6770300EBCC6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186344471CD6770300EBCC6C /* LaunchScreen.storyboard */; };
 		186344531CD67C3A00EBCC6C /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186344521CD67C3A00EBCC6C /* MessageCell.swift */; };
+		1889C2EB1CDBA07E00F6AC14 /* TableViewFetchedResultsDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889C2EA1CDBA07E00F6AC14 /* TableViewFetchedResultsDisplayer.swift */; };
 		1893FABC1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893FABB1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift */; };
 		1893FAC61CD8BB9C0091662E /* ChatCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893FAC51CD8BB9C0091662E /* ChatCreationDelegate.swift */; };
 		1893FAC81CD8D05F0091662E /* UIViewController+FillWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893FAC71CD8D05F0091662E /* UIViewController+FillWithView.swift */; };
@@ -48,6 +49,7 @@
 		186344481CD6770300EBCC6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1863444A1CD6770300EBCC6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		186344521CD67C3A00EBCC6C /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		1889C2EA1CDBA07E00F6AC14 /* TableViewFetchedResultsDisplayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewFetchedResultsDisplayer.swift; sourceTree = "<group>"; };
 		1893FABB1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANTableViewFetchedResultsDelegate.swift; sourceTree = "<group>"; };
 		1893FAC51CD8BB9C0091662E /* ChatCreationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCreationDelegate.swift; sourceTree = "<group>"; };
 		1893FAC71CD8D05F0091662E /* UIViewController+FillWithView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+FillWithView.swift"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				1893FAC51CD8BB9C0091662E /* ChatCreationDelegate.swift */,
 				1893FABB1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift */,
+				1889C2EA1CDBA07E00F6AC14 /* TableViewFetchedResultsDisplayer.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			files = (
 				1893FAC61CD8BB9C0091662E /* ChatCreationDelegate.swift in Sources */,
 				1893FADC1CD916DC0091662E /* ContactImporter.swift in Sources */,
+				1889C2EB1CDBA07E00F6AC14 /* TableViewFetchedResultsDisplayer.swift in Sources */,
 				1800D0751CDA80900054BB9B /* ContextViewController.swift in Sources */,
 				18CA78BA1CD74E9B0037648C /* UITableView+Scroll.swift in Sources */,
 				18CA78BC1CD769A30037648C /* CDHelper.swift in Sources */,
