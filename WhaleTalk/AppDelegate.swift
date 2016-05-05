@@ -39,20 +39,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabController = UITabBarController()
         
-        let vcData:[(UIViewController, UIImage)] = [
+        let vcData:[(UIViewController, UIImage, String)] = [
             
-            (ANContactsViewController(), UIImage(named: "contact-icon")!),
-            (ANAllChatsViewController(), UIImage(named: "chat-icon")!)
+            (ANContactsViewController(), UIImage(named: "contact-icon")!, "Contacts"),
+            (ANAllChatsViewController(), UIImage(named: "chat-icon")!, "Chats")
             
         ]
         
-        let vcs = vcData.map { (vc: UIViewController, image: UIImage) -> UINavigationController in
+        let vcs = vcData.map { (vc: UIViewController, image: UIImage, title: String) -> UINavigationController in
             
             if var vc = vc as? ContextViewController {
                 vc.context = mainContext
             }
                 let nav = UINavigationController(rootViewController: vc)
                 nav.tabBarItem.image = image
+                nav.title = title
                 return nav
 
         }

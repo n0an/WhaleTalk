@@ -22,7 +22,7 @@ class ANContactsViewController: UIViewController, ContextViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "All Contacts"
+        navigationController?.navigationBar.topItem?.title = "All Contacts"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "add"), style: .Plain, target: self, action: "newContact")
         
