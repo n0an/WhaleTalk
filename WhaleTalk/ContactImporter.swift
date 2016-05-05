@@ -114,11 +114,17 @@ class ContactImporter: NSObject {
                                 
                                 guard let phoneNumber = phoneNumbers[cnPhoneNumber.stringValue] ?? NSEntityDescription.insertNewObjectForEntityForName("PhoneNumber", inManagedObjectContext: self.context) as? PhoneNumber else {continue}
                                 
+                                phoneNumber.kind = CNLabeledValue.localizedStringForLabel(cnVal.label)
+                                
                                 phoneNumber.value = self.formatPhoneNumber(cnPhoneNumber)
                                 
                                 phoneNumber.contact = contact
                             }
                             
+                            
+                            if contact.inserted {
+                                contact.favorite = true
+                            }
                             
                         })
                         

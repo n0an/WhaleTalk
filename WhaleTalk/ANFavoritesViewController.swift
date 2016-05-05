@@ -48,6 +48,9 @@ class ANFavoritesViewController: UIViewController, TableViewFetchedResultsDispla
         
         if let context = context {
             let request = NSFetchRequest(entityName: "Contact")
+            
+            request.predicate = NSPredicate(format: "favorite = true")
+            
             request.sortDescriptors = [NSSortDescriptor(key: "lastName", ascending: true), NSSortDescriptor(key: "firstName", ascending: true)]
             
             fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
@@ -81,8 +84,15 @@ class ANFavoritesViewController: UIViewController, TableViewFetchedResultsDispla
         guard let cell = cell as? ANFavoriteCell else {return}
         
         cell.textLabel?.text = contact.fullName
-        cell.detailTextLabel?.text = "***no status***"
-        cell.phoneTypeLabel.text = "mobile"
+        cell.detailTextLabel?.text = contact.status ?? "***no status***"
+        
+        cell.phoneTypeLabel.text = contact.phoneNumbers?.filter({
+            number in
+            guard let number = number as? PhoneNumber else {return false}
+            return number.registered }).first?.kind
+        
+//        cell.phoneTypeLabel.text = contact.phoneNumbers?.allObjects.first?.kind
+        
         cell.accessoryType = .DetailButton
         
     }
@@ -93,6 +103,7 @@ class ANFavoritesViewController: UIViewController, TableViewFetchedResultsDispla
 }
 
 
+// MARK: - UITableViewDataSource
 
 extension ANFavoritesViewController: UITableViewDataSource {
     
@@ -134,6 +145,7 @@ extension ANFavoritesViewController: UITableViewDataSource {
     
 }
 
+// MARK: - UITableViewDelegate
 
 extension ANFavoritesViewController: UITableViewDelegate {
     
@@ -145,10 +157,27 @@ extension ANFavoritesViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let contact = fetchedResultsController?.objectAtIndexPath(indexPath) as? Contact else {return}
         
-        
-        
     }
     
+    
+    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        
+        guard let contact = fetchedResultsController?.objectAtIndexPath(indexPath) as? Contact else {return}
+        
+        guard let id = contact.contactId else {return}
+        
+        let cncontact: CNContact
+        do {
+            cncontact = try store.unifiedContactWithIdentifier(id, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
+        } catch {
+            return
+        }
+        
+        let vc = CNContactViewController(forContact: cncontact)
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
     
     
     
