@@ -34,6 +34,11 @@ class ANFavoritesViewController: UIViewController, TableViewFetchedResultsDispla
         
         title = "Favorites"
         
+        // !!!IMPORTANT!!!
+        // SYSTEM EDIT BUTTON. LINKS TO setEditing(editing: Bool, animated: Bool)  METHOD
+        navigationItem.leftBarButtonItem = editButtonItem()
+        
+        
         automaticallyAdjustsScrollViewInsets = false
         
         tableView.registerClass(ANFavoriteCell.self, forCellReuseIdentifier: cellIdentifier)
@@ -76,7 +81,39 @@ class ANFavoritesViewController: UIViewController, TableViewFetchedResultsDispla
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    // MARK: - HELPER METHODS
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if editing {
+            tableView.setEditing(true, animated: true)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete All", style: .Plain, target: self, action: "deleteAll")
+        } else {
+            tableView.setEditing(false, animated: true)
+            navigationItem.rightBarButtonItem = nil
+            guard let context = context where context.hasChanges else {return}
+            
+            do {
+                try context.save()
+            } catch {
+                print("Error saving")
+            }
+        }
+        
+    }
 
+    
+    func deleteAll() {
+        guard let contacts = fetchedResultsController?.fetchedObjects as? [Contact] else {return}
+        
+        for contact in contacts {
+            context?.deleteObject(contact)
+        }
+    }
+    
     
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         guard let contact = fetchedResultsController?.objectAtIndexPath(indexPath) as? Contact else {return}
@@ -98,8 +135,6 @@ class ANFavoritesViewController: UIViewController, TableViewFetchedResultsDispla
     }
     
     
-    
-
 }
 
 
@@ -181,7 +216,12 @@ extension ANFavoritesViewController: UITableViewDelegate {
     
     
     
-    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        guard let contact = fetchedResultsController?.objectAtIndexPath(indexPath) as? Contact else {return}
+        contact.favorite = false
+        
+    }
     
     
     
