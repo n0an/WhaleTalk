@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let vcData:[(UIViewController, UIImage, String)] = [
             
+            (ANFavoritesViewController(), UIImage(named: "favorites_icon")!, "Favorites"),
             (ANContactsViewController(), UIImage(named: "contact-icon")!, "Contacts"),
             (ANAllChatsViewController(), UIImage(named: "chat-icon")!, "Chats")
             

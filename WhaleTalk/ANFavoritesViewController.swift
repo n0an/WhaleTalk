@@ -1,47 +1,45 @@
 //
-//  ANContactsViewController.swift
+//  ANFavoritesViewController.swift
 //  WhaleTalk
 //
-//  Created by Anton Novoselov on 04/05/16.
+//  Created by Anton Novoselov on 05/05/16.
 //  Copyright © 2016 Anton Novoselov. All rights reserved.
 //
 
 import UIKit
 import CoreData
-import ContactsUI
 import Contacts
+import ContactsUI
 
-class ANContactsViewController: UIViewController, ContextViewController, TableViewFetchedResultsDisplayer, ContactSelector {
+class ANFavoritesViewController: UIViewController, TableViewFetchedResultsDisplayer, ContextViewController {
     
     // MARK: - ATTRIBUTES
     
     var context: NSManagedObjectContext?
     
-    private let tableView = UITableView(frame: CGRectZero, style: .Plain)
-    
-    private let cellIdentifier = "ContactCell"
-    
     private var fetchedResultsController: NSFetchedResultsController?
-    
     private var fetchedResultsDelegate: NSFetchedResultsControllerDelegate?
     
-    private var searchController: UISearchController?
-
+    private let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    
+    private let cellIdentifier = "FavoriteCell"
+    
+    private let store = CNContactStore()
     
     // MARK: - viewDidLoad
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.topItem?.title = "All Contacts"
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "add"), style: .Plain, target: self, action: "newContact")
+        title = "Favorites"
         
         automaticallyAdjustsScrollViewInsets = false
         
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.registerClass(ANFavoriteCell.self, forCellReuseIdentifier: cellIdentifier)
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        // !!!TRY_IT!!!
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -50,11 +48,9 @@ class ANContactsViewController: UIViewController, ContextViewController, TableVi
         
         if let context = context {
             let request = NSFetchRequest(entityName: "Contact")
-            
             request.sortDescriptors = [NSSortDescriptor(key: "lastName", ascending: true), NSSortDescriptor(key: "firstName", ascending: true)]
             
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: "sortLetter", cacheName: nil)
-            
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
             fetchedResultsDelegate = ANTableViewFetchedResultsDelegate(tableView: tableView, displayer: self)
             
             fetchedResultsController?.delegate = fetchedResultsDelegate
@@ -64,89 +60,56 @@ class ANContactsViewController: UIViewController, ContextViewController, TableVi
             } catch {
                 print("There was a problem fetching.")
             }
+            
+            
         }
         
         
-        let resultsVC = ContactsSearchResultsController()
-        resultsVC.contactSelector = self
-        resultsVC.contacts = fetchedResultsController?.fetchedObjects as! [Contact]
-        
-        searchController = UISearchController(searchResultsController: resultsVC)
-        searchController?.searchResultsUpdater = resultsVC
-        
-        definesPresentationContext = true
-        
-        tableView.tableHeaderView = searchController?.searchBar
-        
-        
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - HELPER METHODS
-    
-    func newContact() {
-        
-        let vc = CNContactViewController(forNewContact: nil)
-        vc.delegate = self
-        
-        navigationController?.pushViewController(vc, animated: true)
-        
-    }
-    
+
     
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         guard let contact = fetchedResultsController?.objectAtIndexPath(indexPath) as? Contact else {return}
         
+        guard let cell = cell as? ANFavoriteCell else {return}
+        
         cell.textLabel?.text = contact.fullName
-    }
-    
-    // MARK: - ContactSelector protocol
-    
-    func selectedContact(contact: Contact) {
-        guard let id = contact.contactId else {return}
+        cell.detailTextLabel?.text = "***no status***"
+        cell.phoneTypeLabel.text = "mobile"
+        cell.accessoryType = .DetailButton
         
-        let store = CNContactStore()
-        
-        let cncontact: CNContact
-        
-        do {
-            cncontact = try store.unifiedContactWithIdentifier(id, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
-        } catch {
-            return
-        }
-        
-        let vc = CNContactViewController(forContact: cncontact)
-        vc.hidesBottomBarWhenPushed = true
-        
-        navigationController?.pushViewController(vc, animated: true)
-        
-        searchController?.active = false
     }
     
     
+    
+
 }
 
 
-// MARK: - UITableViewDataSource
 
-extension ANContactsViewController: UITableViewDataSource {
+extension ANFavoritesViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return fetchedResultsController?.sections?.count ?? 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         guard let sections = fetchedResultsController?.sections else {return 0}
         
         let currentSection = sections[section]
         
         return currentSection.numberOfObjects
+        
+        
     }
-    
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -159,21 +122,21 @@ extension ANContactsViewController: UITableViewDataSource {
         
     }
     
+    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let sections = fetchedResultsController?.sections else {return nil}
         
         let currentSection = sections[section]
         
         return currentSection.name
-        
     }
     
     
 }
 
-// MARK: - UITableViewDelegate
 
-extension ANContactsViewController: UITableViewDelegate {
+extension ANFavoritesViewController: UITableViewDelegate {
+    
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
@@ -181,28 +144,25 @@ extension ANContactsViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let contact = fetchedResultsController?.objectAtIndexPath(indexPath) as? Contact else {return}
-        selectedContact(contact)
-        tableView .deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    
-    
-}
-
-
-// MARK: - CNContactViewControllerDelegate
-
-extension ANContactsViewController: CNContactViewControllerDelegate {
-    
-    func contactViewController(viewController: CNContactViewController, didCompleteWithContact contact: CNContact?) {
-        if contact == nil {
-            navigationController?.popViewControllerAnimated(true)
-            return
-        }
+        
+        
         
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
+
+
+
+
 
 
 
