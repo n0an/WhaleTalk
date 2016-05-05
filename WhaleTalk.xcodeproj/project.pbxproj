@@ -16,6 +16,7 @@
 		186344491CD6770300EBCC6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186344471CD6770300EBCC6C /* LaunchScreen.storyboard */; };
 		186344531CD67C3A00EBCC6C /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186344521CD67C3A00EBCC6C /* MessageCell.swift */; };
 		1889C2EB1CDBA07E00F6AC14 /* TableViewFetchedResultsDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889C2EA1CDBA07E00F6AC14 /* TableViewFetchedResultsDisplayer.swift */; };
+		1889C2ED1CDBA7CB00F6AC14 /* ContactsSearchResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889C2EC1CDBA7CB00F6AC14 /* ContactsSearchResultsController.swift */; };
 		1893FABC1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893FABB1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift */; };
 		1893FAC61CD8BB9C0091662E /* ChatCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893FAC51CD8BB9C0091662E /* ChatCreationDelegate.swift */; };
 		1893FAC81CD8D05F0091662E /* UIViewController+FillWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893FAC71CD8D05F0091662E /* UIViewController+FillWithView.swift */; };
@@ -50,6 +51,7 @@
 		1863444A1CD6770300EBCC6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		186344521CD67C3A00EBCC6C /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		1889C2EA1CDBA07E00F6AC14 /* TableViewFetchedResultsDisplayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewFetchedResultsDisplayer.swift; sourceTree = "<group>"; };
+		1889C2EC1CDBA7CB00F6AC14 /* ContactsSearchResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsSearchResultsController.swift; sourceTree = "<group>"; };
 		1893FABB1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANTableViewFetchedResultsDelegate.swift; sourceTree = "<group>"; };
 		1893FAC51CD8BB9C0091662E /* ChatCreationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCreationDelegate.swift; sourceTree = "<group>"; };
 		1893FAC71CD8D05F0091662E /* UIViewController+FillWithView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+FillWithView.swift"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				186344401CD6770300EBCC6C /* ChatViewController.swift */,
 				1893FAD31CD8EEDD0091662E /* ANNewGroupViewController.swift */,
 				1893FAD91CD8FB800091662E /* ANNewGroupParticipantsViewController.swift */,
+				1889C2EC1CDBA7CB00F6AC14 /* ContactsSearchResultsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				1893FAD41CD8EEDD0091662E /* ANNewGroupViewController.swift in Sources */,
 				18CA78D91CD7E2400037648C /* Contact.swift in Sources */,
 				18CA78C91CD775A50037648C /* Chat.swift in Sources */,
+				1889C2ED1CDBA7CB00F6AC14 /* ContactsSearchResultsController.swift in Sources */,
 				18CA78C31CD76B770037648C /* Message.swift in Sources */,
 				186344531CD67C3A00EBCC6C /* MessageCell.swift in Sources */,
 				1863443F1CD6770300EBCC6C /* AppDelegate.swift in Sources */,

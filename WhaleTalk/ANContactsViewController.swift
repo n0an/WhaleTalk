@@ -24,6 +24,8 @@ class ANContactsViewController: UIViewController, ContextViewController, TableVi
     private var fetchedResultsController: NSFetchedResultsController?
     
     private var fetchedResultsDelegate: NSFetchedResultsControllerDelegate?
+    
+    private var searchController: UISearchController?
 
     
     // MARK: - viewDidLoad
@@ -62,6 +64,17 @@ class ANContactsViewController: UIViewController, ContextViewController, TableVi
                 print("There was a problem fetching.")
             }
         }
+        
+        
+        let resultsVC = ContactsSearchResultsController()
+        resultsVC.contacts = fetchedResultsController?.fetchedObjects as! [Contact]
+        
+        searchController = UISearchController(searchResultsController: resultsVC)
+        searchController?.searchResultsUpdater = resultsVC
+        
+        definesPresentationContext = true
+        
+        tableView.tableHeaderView = searchController?.searchBar
         
         
     }
