@@ -90,6 +90,11 @@ class ANContactsViewController: UIViewController, ContextViewController, TableVi
     
     func newContact() {
         
+        let vc = CNContactViewController(forNewContact: nil)
+        vc.delegate = self
+        
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     
@@ -186,7 +191,17 @@ extension ANContactsViewController: UITableViewDelegate {
 
 
 
-
+extension ANContactsViewController: CNContactViewControllerDelegate {
+    
+    func contactViewController(viewController: CNContactViewController, didCompleteWithContact contact: CNContact?) {
+        if contact == nil {
+            navigationController?.popViewControllerAnimated(true)
+            return
+        }
+        
+    }
+    
+}
 
 
 
