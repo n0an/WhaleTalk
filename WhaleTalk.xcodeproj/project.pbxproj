@@ -24,6 +24,7 @@
 		1889C3011CDBC8DA00F6AC14 /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889C2FF1CDBC8DA00F6AC14 /* Contact+CoreDataProperties.swift */; };
 		1889C3021CDBC8DA00F6AC14 /* PhoneNumber+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889C3001CDBC8DA00F6AC14 /* PhoneNumber+CoreDataProperties.swift */; };
 		1889C3041CDBDC3B00F6AC14 /* ANSignUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889C3031CDBDC3B00F6AC14 /* ANSignUPViewController.swift */; };
+		1889C3061CDC7CE000F6AC14 /* RemoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1889C3051CDC7CE000F6AC14 /* RemoteStore.swift */; };
 		1893FABC1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893FABB1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift */; };
 		1893FAC61CD8BB9C0091662E /* ChatCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893FAC51CD8BB9C0091662E /* ChatCreationDelegate.swift */; };
 		1893FAC81CD8D05F0091662E /* UIViewController+FillWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893FAC71CD8D05F0091662E /* UIViewController+FillWithView.swift */; };
@@ -64,6 +65,7 @@
 		1889C2FF1CDBC8DA00F6AC14 /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Contact+CoreDataProperties.swift"; path = "../Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1889C3001CDBC8DA00F6AC14 /* PhoneNumber+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PhoneNumber+CoreDataProperties.swift"; path = "../PhoneNumber+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1889C3031CDBDC3B00F6AC14 /* ANSignUPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANSignUPViewController.swift; sourceTree = "<group>"; };
+		1889C3051CDC7CE000F6AC14 /* RemoteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteStore.swift; sourceTree = "<group>"; };
 		1893FABB1CD8AAAC0091662E /* ANTableViewFetchedResultsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANTableViewFetchedResultsDelegate.swift; sourceTree = "<group>"; };
 		1893FAC51CD8BB9C0091662E /* ChatCreationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCreationDelegate.swift; sourceTree = "<group>"; };
 		1893FAC71CD8D05F0091662E /* UIViewController+FillWithView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+FillWithView.swift"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				1863443E1CD6770300EBCC6C /* AppDelegate.swift */,
+				1889C3051CDC7CE000F6AC14 /* RemoteStore.swift */,
 				1893FABA1CD89A8C0091662E /* Helpers */,
 				18CA78DC1CD7E5340037648C /* Controllers */,
 				18CA78DB1CD7E51F0037648C /* Cells */,
@@ -293,6 +296,7 @@
 				1893FAC61CD8BB9C0091662E /* ChatCreationDelegate.swift in Sources */,
 				1893FADC1CD916DC0091662E /* ContactImporter.swift in Sources */,
 				1889C2EB1CDBA07E00F6AC14 /* TableViewFetchedResultsDisplayer.swift in Sources */,
+				1889C3061CDC7CE000F6AC14 /* RemoteStore.swift in Sources */,
 				1800D0751CDA80900054BB9B /* ContextViewController.swift in Sources */,
 				18CA78BA1CD74E9B0037648C /* UITableView+Scroll.swift in Sources */,
 				18CA78BC1CD769A30037648C /* CDHelper.swift in Sources */,

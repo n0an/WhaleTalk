@@ -10,11 +10,19 @@ import UIKit
 
 class ANSignUPViewController: UIViewController {
     
+    // MARK: - ATTRIBUTES
+    
     private let phoneNumberField = UITextField()
     private let emailField = UITextField()
     private let passwordField = UITextField()
     
+    var remoteStore: RemoteStore?
     
+    var contactImporter: ContactImporter?
+    
+    var rootViewController: UIViewController?
+    
+    // MARK: - viewDidLoad
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,30 +89,9 @@ class ANSignUPViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    // MARK: - HELPER METHODS
 
-    
-    func pressedContinue(sender: UIButton) {
-        
-        guard let phoneNumber = phoneNumberField.text where phoneNumber.characters.count > 0 else {
-            alertForError("Please include your phone number.")
-            return
-        }
-        
-        guard let email = emailField.text where email.characters.count > 0 else {
-            alertForError("Please include your email address.")
-            return
-            
-        }
-        
-        guard let password = passwordField.text where password.characters.count >= 6 else {
-            alertForError("Password must be at least 6 characters.")
-            return
-        }
-        
-    }
-    
-    
-    
     private func alertForError(error: String) {
         let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .Alert)
         
@@ -115,6 +102,50 @@ class ANSignUPViewController: UIViewController {
         self.presentViewController(alertController, animated: true, completion: nil)
         
     }
+
+
+    // MARK: - ACTIONS
+
+    func pressedContinue(sender: UIButton) {
+        
+        sender.enabled = false
+        
+        guard let phoneNumber = phoneNumberField.text where phoneNumber.characters.count > 0 else {
+            alertForError("Please include your phone number.")
+            sender.enabled = true
+            return
+        }
+        
+        guard let email = emailField.text where email.characters.count > 0 else {
+            alertForError("Please include your email address.")
+            sender.enabled = true
+            return
+        }
+        
+        guard let password = passwordField.text where password.characters.count >= 6 else {
+            alertForError("Password must be at least 6 characters.")
+            sender.enabled = true
+            return
+        }
+        
+        remoteStore?.signUp(phoneNumber: phoneNumber, email: email, password: password, success: {
+            guard let rootVC = self.rootViewController, remoteStore = self.remoteStore, contactImporter = self.contactImporter else {return}
+            remoteStore.startSyncing()
+            contactImporter.fetch()
+            contactImporter.listenForChanges()
+            
+            self.presentViewController(rootVC, animated: true, completion: nil)
+            
+            }, error: {
+                errorString in
+                self.alertForError(errorString)
+                sender.enabled = true
+        })
+        
+    }
+    
+    
+    
     
 
 }
