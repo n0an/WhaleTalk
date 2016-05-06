@@ -59,7 +59,9 @@ class ANSignUPViewController: UIViewController {
         stackView.axis = .Vertical
         stackView.alignment = .Fill
         stackView.spacing = 20
+        
         view.addSubview(stackView)
+        
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
