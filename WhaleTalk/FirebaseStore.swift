@@ -16,7 +16,7 @@ class FireBaseStore {
     private let context: NSManagedObjectContext
     private let rootRef = Firebase(url: "https://noanwhaletalk.firebaseio.com")
     
-    private var currentPhoneNumber: String? {
+    private(set) static var currentPhoneNumber: String? {
         set(phoneNumber) {
             NSUserDefaults.standardUserDefaults().setObject(phoneNumber, forKey: "phoneNumber")
         }
@@ -34,6 +34,14 @@ class FireBaseStore {
         return rootRef.authData != nil
     }
     
+    private func upload(model: NSManagedObject) {
+        guard let model = model as? FirebaseModel else {return}
+        
+        model.upload(rootRef, context: context)
+        
+        
+    }
+    
 }
 
 
@@ -45,6 +53,14 @@ extension FireBaseStore: RemoteStore {
     
     
     func store(inserted inserted: [NSManagedObject], updated: [NSManagedObject], deleted: [NSManagedObject]) {
+        
+        inserted.forEach(upload)
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving")
+        }
         
     }
     
@@ -59,7 +75,7 @@ extension FireBaseStore: RemoteStore {
                 let newUser = [
                     "phoneNumber" : phoneNumber
                 ]
-                self.currentPhoneNumber = phoneNumber
+                FireBaseStore.currentPhoneNumber = phoneNumber
                 let uid = result["uid"] as! String
                 self.rootRef.childByAppendingPath("users").childByAppendingPath(uid).setValue(newUser)
                 

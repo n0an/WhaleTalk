@@ -45,7 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let firebaseStore = FireBaseStore(context: firebaseContext)
         self.firebaseStore = firebaseStore
         
-        contactsUploadSyncer = ANSyncer(mainContext: mainContext, backgroundContext: firebaseContext)
+        contactsUploadSyncer = ANSyncer(mainContext: contactsContext, backgroundContext: firebaseContext)
+        
         contactsUploadSyncer?.remoteStore = firebaseStore
         
         firebaseSyncer = ANSyncer(mainContext: mainContext, backgroundContext: firebaseContext)
