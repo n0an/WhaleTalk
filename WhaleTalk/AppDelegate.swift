@@ -17,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var contactImporter: ContactImporter?
     
     private var contactsSyncer: ANSyncer?
+    
+    private var contactsUploadSyncer: ANSyncer?
+    private var firebaseSyncer: ANSyncer?
+    
+    private var firebaseStore: FireBaseStore?
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -29,43 +35,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let contactsContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         contactsContext.persistentStoreCoordinator = CDHelper.sharedInstance.coordinator
         
+        
+        let firebaseContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        firebaseContext.persistentStoreCoordinator = CDHelper.sharedInstance.coordinator
+        
+        
+        firebaseSyncer = ANSyncer(mainContext: mainContext, backgroundContext: firebaseContext)
+        
+        let firebaseStore = FireBaseStore(context: firebaseContext)
+        self.firebaseStore = firebaseStore
+        
+        contactsUploadSyncer = ANSyncer(mainContext: mainContext, backgroundContext: firebaseContext)
         contactsSyncer = ANSyncer(mainContext: mainContext, backgroundContext: contactsContext)
         
         
         contactImporter = ContactImporter(context: contactsContext)
         
-        importContacts(contactsContext)
-        
-        contactImporter?.listenForChanges()
+//        importContacts(contactsContext)
         
         
-        // !!!IMPORTANT!!!
-        // ** ADDING UITABBARCONTROLLER IN CODE
         
-        let tabController = UITabBarController()
-        
-        let vcData:[(UIViewController, UIImage, String)] = [
+        if firebaseStore.hasAuth() {
+            contactImporter?.listenForChanges()
             
-            (ANFavoritesViewController(), UIImage(named: "favorites_icon")!, "Favorites"),
-            (ANContactsViewController(), UIImage(named: "contact-icon")!, "Contacts"),
-            (ANAllChatsViewController(), UIImage(named: "chat-icon")!, "Chats")
             
-        ]
-        
-        let vcs = vcData.map { (vc: UIViewController, image: UIImage, title: String) -> UINavigationController in
+            // !!!IMPORTANT!!!
+            // ** ADDING UITABBARCONTROLLER IN CODE
             
-            if var vc = vc as? ContextViewController {
-                vc.context = mainContext
-            }
+            let tabController = UITabBarController()
+            
+            let vcData:[(UIViewController, UIImage, String)] = [
+                
+                (ANFavoritesViewController(), UIImage(named: "favorites_icon")!, "Favorites"),
+                (ANContactsViewController(), UIImage(named: "contact-icon")!, "Contacts"),
+                (ANAllChatsViewController(), UIImage(named: "chat-icon")!, "Chats")
+                
+            ]
+            
+            let vcs = vcData.map { (vc: UIViewController, image: UIImage, title: String) -> UINavigationController in
+                
+                if var vc = vc as? ContextViewController {
+                    vc.context = mainContext
+                }
                 let nav = UINavigationController(rootViewController: vc)
                 nav.tabBarItem.image = image
                 nav.title = title
                 return nav
-
+                
+            }
+            tabController.viewControllers = vcs
+            window?.rootViewController = tabController
+        } else {
+            
+            window?.rootViewController = ANSignUPViewController()
         }
-        tabController.viewControllers = vcs
-//        window?.rootViewController = tabController
-        window?.rootViewController = ANSignUPViewController()
+        
         
         
         return true
